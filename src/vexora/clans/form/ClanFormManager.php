@@ -3,8 +3,8 @@
 namespace vexora\clans\form;
 
 use pocketmine\player\Player;
-use awpe\practice\gui\form\SimpleForm;
-use awpe\practice\gui\form\CustomForm;
+use awpe\practice\gui\form\SimpleForm; //replace with jojoe77777 simpleform
+use awpe\practice\gui\form\CustomForm; //replace with jojoe77777 customform
 use pocketmine\utils\TextFormat;
 use pocketmine\plugin\PluginBase;
 use vexora\clans\types\ClanManager;
@@ -17,10 +17,7 @@ class ClanFormManager {
         private PluginBase $plugin,
         private ClanManager $clanManager
     ) {}
-    
-    /**
-     * Главное меню кланов
-     */
+
     public function sendMainForm(Player $player): void {
         $form = new SimpleForm(function(Player $player, ?int $data = null): void {
             if($data === null) return;
@@ -47,10 +44,7 @@ class ClanFormManager {
         
         $player->sendForm($form);
     }
-    
-    /**
-     * Форма создания клана
-     */
+
     private function sendCreateClanForm(Player $player): void {
         if(!$player->hasPermission(ClanPermissions::CREATE)) {
             $player->sendMessage(TextFormat::RED . "У вас нет прав на создание клана!");
@@ -81,10 +75,7 @@ class ClanFormManager {
         $form->addDropdown("Цвет клана", array_map(fn(ClanColor $c) => $c->getName(), ClanColor::cases()));
         $player->sendForm($form);
     }
-    
-    /**
-     * Список всех кланов
-     */
+
     private function sendClanList(Player $player): void {
         $form = new SimpleForm(function(Player $player, ?int $data = null): void {
             if($data === null) return;
@@ -104,10 +95,7 @@ class ClanFormManager {
         
         $player->sendForm($form);
     }
-    
-    /**
-     * Информация о конкретном клане
-     */
+
     private function sendClanInfo(Player $player, string $clanName): void {
         $clan = $this->clanManager->getClan($clanName);
         if($clan === null) {
@@ -131,10 +119,7 @@ class ClanFormManager {
         $form->addButton("§cНазад");
         $player->sendForm($form);
     }
-    
-    /**
-     * Информация о своем клане
-     */
+
     private function sendMyClanInfo(Player $player): void {
         $clan = $this->clanManager->getPlayerClan($player->getName());
         if($clan === null) {
@@ -144,10 +129,7 @@ class ClanFormManager {
         
         $this->sendClanInfo($player, $clan->getName());
     }
-    
-    /**
-     * Форма выхода из клана
-     */
+
     private function sendLeaveClanForm(Player $player): void {
         $clan = $this->clanManager->getPlayerClan($player->getName());
         if($clan === null) {
@@ -173,10 +155,7 @@ class ClanFormManager {
         $form->addButton("§cНет, остаться");
         $player->sendForm($form);
     }
-    
-    /**
-     * Меню управления кланом (для лидера)
-     */
+
     private function sendClanManagementForm(Player $player): void {
         $clan = $this->clanManager->getPlayerClan($player->getName());
         if ($clan === null) {
@@ -212,10 +191,7 @@ class ClanFormManager {
         
         $player->sendForm($form);
     }
-    
-    /**
-     * Форма приглашения игрока в клан
-     */
+
     private function sendInvitePlayerForm(Player $player): void {
         $onlinePlayers = array_filter(
             $this->plugin->getServer()->getOnlinePlayers(),
@@ -245,10 +221,7 @@ class ClanFormManager {
         
         $player->sendForm($form);
     }
-    
-    /**
-     * Форма удаления клана
-     */
+
     private function sendDisbandClanForm(Player $player): void {
         $clan = $this->clanManager->getPlayerClan($player->getName());
         if ($clan === null) return;
@@ -271,10 +244,7 @@ class ClanFormManager {
         $form->addButton("§cНет, отмена");
         $player->sendForm($form);
     }
-    
-    /**
-     * Форма исключения игрока из клана
-     */
+
     private function sendKickPlayerForm(Player $player): void {
         $clan = $this->clanManager->getPlayerClan($player->getName());
         if ($clan === null || $clan->getLeader() !== $player->getName()) return;

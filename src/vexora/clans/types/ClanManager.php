@@ -18,10 +18,7 @@ class ClanManager {
         ]);
         $this->loadData();
     }
-    
-    /**
-     * Загрузка данных из файла
-     */
+
     private function loadData(): void {
         $data = $this->config->getAll();
         $this->playerClans = $data['playerClans'] ?? [];
@@ -43,10 +40,7 @@ class ClanManager {
             }
         }
     }
-    
-    /**
-     * Сохранение данных в файл
-     */
+
     public function saveData(): void {
         $clansData = [];
         foreach ($this->clans as $name => $clan) {
@@ -64,10 +58,7 @@ class ClanManager {
         ]);
         $this->config->save();
     }
-    
-    /**
-     * Создание нового клана
-     */
+
     public function createClan(Player $leader, string $name, ClanColor $color): bool {
         if (isset($this->clans[$name])) {
             return false;
@@ -85,10 +76,7 @@ class ClanManager {
         $this->saveData();
         return true;
     }
-    
-    /**
-     * Приглашение игрока в клан
-     */
+
     public function invitePlayer(Player $inviter, Player $target): bool {
         $clan = $this->getPlayerClan($inviter->getName());
         if ($clan === null || $clan->getLeader() !== $inviter->getName()) {
@@ -104,9 +92,6 @@ class ClanManager {
         return true;
     }
     
-    /**
-     * Принятие приглашения в клан
-     */
     public function acceptInvite(Player $player, string $clanName): bool {
         if ($this->getPlayerClan($player->getName()) !== null) {
             return false;
@@ -122,10 +107,7 @@ class ClanManager {
         $this->saveData();
         return true;
     }
-    
-    /**
-     * Удаление клана
-     */
+
     public function disbandClan(Player $leader): bool {
         $clan = $this->getPlayerClan($leader->getName());
         if ($clan === null || $clan->getLeader() !== $leader->getName()) {
@@ -140,32 +122,20 @@ class ClanManager {
         $this->saveData();
         return true;
     }
-    
-    /**
-     * Получение клана по имени
-     */
+
     public function getClan(string $name): ?Clan {
         return $this->clans[$name] ?? null;
     }
-    
-    /**
-     * Получение клана игрока
-     */
+
     public function getPlayerClan(string $playerName): ?Clan {
         $clanName = $this->playerClans[$playerName] ?? null;
         return $clanName ? $this->getClan($clanName) : null;
     }
-    
-    /**
-     * Получение списка всех кланов
-     */
+
     public function getAllClans(): array {
         return $this->clans;
     }
-    
-    /**
-     * Выход из клана
-     */
+
     public function leaveClan(Player $player): bool {
         $clan = $this->getPlayerClan($player->getName());
         if ($clan === null || $clan->getLeader() === $player->getName()) {

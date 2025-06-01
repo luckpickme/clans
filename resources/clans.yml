@@ -1,0 +1,18 @@
+---
+clans:
+  Vexora:
+    color: 2
+    leader: avastgrief
+    members:
+    - avastgrief
+    - RepaidFLEXER
+    - cytne
+    stats:
+      kills: 11
+      exp: 33
+      level: 1
+playerClans:
+  RepaidFLEXER: Vexora
+  avastgrief: Vexora
+  cytne: Vexora
+...

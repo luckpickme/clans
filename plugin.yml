@@ -1,0 +1,28 @@
+name: ClanSystem
+version: 1.0.0
+
+main: vexora\clans\Main
+api: 5.0.0
+
+author: Vexora (sheluvmyshe)
+website: https://github.com/luckpickme
+
+commands:
+  clans:
+    description: "Управление кланами"
+    usage: "/clans"
+    permission: "clansystem.use"
+    permission-message: "§cУ вас нет прав на использование этой команды!"
+permissions:
+  clansystem.use:
+    description: "Позволяет использовать команду /clans"
+    default: true
+  clansystem.create:
+    description: "Позволяет создавать кланы"
+    default: true
+  clansystem.invite:
+    description: "Позволяет приглашать игроков в клан"
+    default: op
+  clansystem.kick:
+    description: "Позволяет исключать игроков из клана"
+    default: op
